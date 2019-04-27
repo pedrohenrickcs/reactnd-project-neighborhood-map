@@ -1,0 +1,16 @@
+.box-info {
+    background: #4f4f4f;
+    color: #fff;
+    height: 100%;
+    left: 0;
+    padding: 20px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 300px;
+    z-index: 10;
+
+    &__text {
+        color: #e8e8e8;
+    }
+}

@@ -1,0 +1,13 @@
+@charset 'UTF-8';
+
+@import './components/googleMaps/googleMaps';
+@import './components/infoLocal/infoLocal';
+
+body {
+    overflow: hidden;
+}
+
+ul { 
+    list-style: none; 
+    padding: 0;
+}
