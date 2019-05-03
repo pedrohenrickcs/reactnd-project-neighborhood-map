@@ -7,18 +7,28 @@ export class MapGoogle extends Component {
     state = {
         place: {},
         marker: {},
-        showInfo: false
-    }
+        showingInfoWindow: false
+    };
 
-    clickMap = (props, active) => {
-        console.log('maark', props);
+    clickMarker = (props, marker, e) => {
         
+        console.log('maark', props);
+
         this.setState({
             place: props,
-            marker: active,
-            showInfo: true
+            markerActive: marker,
+            showingInfoWindow: true
         });
     }
+
+    MapClicked = (props) => {
+         if (this.state.showingInfoWindow) {
+             this.setState({
+                 showingInfoWindow: false,
+                 activeMarker: null
+             })
+         }
+     };
 
     render() {
         console.log('render', this.props);
@@ -27,18 +37,20 @@ export class MapGoogle extends Component {
                 <Map 
                     google={this.props.google} 
                     zoom={14}  
-                    initialCenter={{ lat: -23.5843807, lng: -46.6784441 }}>
+                    initialCenter={{ lat: -23.5843807, lng: -46.6784441 }}
+                    onClick={this.MapClicked}>
                     
                     <Marker
-                        onClick={() => this.clickMap()}
+                        onClick={this.clickMarker}
                         name={'Current location'} />
 
                     <InfoWindow
-                        marker={this.state.marker}
-                        onOpen={this.windowHasOpened}
-                        info={this.showInfo}
-                    >
-
+                        marker={this.state.markerActive}
+                        visible={this.state.showingInfoWindow}
+                        >
+                        <div>
+                            <h1>{this.state.place.name}</h1>
+                        </div>
                     </InfoWindow>
                 </Map>
             </div>
