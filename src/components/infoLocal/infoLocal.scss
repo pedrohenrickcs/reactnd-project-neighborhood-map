@@ -1,16 +1,45 @@
 .box-info {
-    background: #4f4f4f;
+    background: #1C1C1C;
     color: #fff;
     height: 100%;
     left: 0;
-    padding: 20px;
+    overflow-y: auto;
     position: absolute;
     text-align: center;
     top: 0;
-    width: 300px;
+    width: 360px;
     z-index: 10;
-
+    
     &__text {
         color: #e8e8e8;
+        li {
+            align-items: center;
+            cursor: pointer;
+            padding: 20px;
+            text-align: left;
+            transition: all .3s ease-in-out;
+        }
+        li:hover {
+            color: #008B8B;
+        }
+        
+        li::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #008B8B;
+            transition: width .5s;
+            margin-top: 5px;
+            margin-left: 15%;
+        }
+        li:hover::after {
+            width: 85%;
+        }
+    }
+
+    &__ico {
+        vertical-align: middle;
+        margin-right: 10px;
     }
 }
