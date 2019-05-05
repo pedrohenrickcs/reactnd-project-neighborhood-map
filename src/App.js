@@ -3,11 +3,7 @@ import InfoBar from './components/infoLocal/infoLocal';
 import MapGoogle from './components/googleMaps/googleMaps';
 import ReactDOM from 'react-dom';
 import './App.scss';
-
-const foursquare = require('react-foursquare')({
-    clientID: 'UTI24NQIUWEOYJ4AI0LZZYDHBEPXIFHWXRX0EPHBAQXRN5E2',
-    clientSecret: 'WC3ENWDDKL02H42M5IK1T0XBVSO2EATOURD0QL401LLEXLTS'
-});
+import KeyApp from './components/utils/keys';
 
 const params = {
     'll': '-23.557552800000003, -46.675900299999995',
@@ -25,7 +21,7 @@ export default class Foursquare extends Component {
 	}
 
 	fetchLocation() {
-		foursquare.venues.getVenues(params)
+		KeyApp.venues.getVenues(params)
 			.then(res=> {
 				console.log('res', res);
 				
@@ -43,7 +39,6 @@ export default class Foursquare extends Component {
         
         console.log('STATE', place);
         
-		
         return (
             <div>
                 <div>Items:</div>
@@ -54,6 +49,7 @@ export default class Foursquare extends Component {
 						/>
                         <MapGoogle
                             places={place.items}
+                            // onclick={this.MapClicked}
                         />
                     </main>
                 </Fragment>
@@ -63,6 +59,6 @@ export default class Foursquare extends Component {
 }
 
 ReactDOM.render(
-  <Foursquare /*viewLocation={ () => this.fetchLocation() } */ />,
+  <Foursquare/>,
   document.getElementById('root')
 );

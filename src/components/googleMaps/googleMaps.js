@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import Foursquare from '../../App'
 
 export class MapGoogle extends Component {
     
     state = {
         place: {},
         marker: {},
-        showingInfoWindow: false,
-        items: []
+        showingInfoWindow: false
     };
     
     clickMarker = (props, marker, e) => {
@@ -48,13 +46,12 @@ export class MapGoogle extends Component {
         render() {    
             
             const { places } = this.props;
-            
-            console.log('THIS', places);
+            const googleProps = this.props.google;
             
             return (
                 <div className="map">
                     <Map 
-                        google={this.props.google} 
+                        google={googleProps} 
                         zoom={14}  
                         initialCenter={{ lat: -23.557552800000003, lng: -46.675900299999995 }}
                         onClick={this.MapClicked}>
@@ -65,6 +62,7 @@ export class MapGoogle extends Component {
                                 onClick={this.clickMarker}
                                 name={e.name} 
                                 position={{ lat: e.location.lat, lng: e.location.lng }}
+                                // animation={googleProps.maps.Animation.DROP}
                             />
                         )}
                         
