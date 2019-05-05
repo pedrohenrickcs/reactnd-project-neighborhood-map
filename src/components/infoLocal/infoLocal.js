@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import SearchResult from '../searchResult/searchResult';
 
-const InfoBar = (props) => {
+const InfoBar = (props) => {   
 
     return (
         <aside className="box-info">
@@ -9,7 +9,7 @@ const InfoBar = (props) => {
             <h1>Localidades</h1>
             <ul className="box-info__text">
                 {props.places.map((e) => (
-                    <li>
+                    <li key={e.id}>
                         <img src={`${e.categories[0].icon.prefix}bg_32${e.categories[0].icon.suffix}`} alt={`${e.categories[0].name}`} className="box-info__text-ico"/>
                         {e.name}
                     </li>

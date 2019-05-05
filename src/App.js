@@ -5,13 +5,14 @@ import ReactDOM from 'react-dom';
 import './App.scss';
 
 const foursquare = require('react-foursquare')({
-    clientID: 'HCZJBXBEBYIVTHQ3ITCH5PX0XOLS4NM1YI2CPY0NQEYTU0RT',
-    clientSecret: 'VYHBWGOWOWCRQPMXJEPVOENKKKA3MFMC0QWJQ2ASNUQ0KWMS'
+    clientID: 'UTI24NQIUWEOYJ4AI0LZZYDHBEPXIFHWXRX0EPHBAQXRN5E2',
+    clientSecret: 'WC3ENWDDKL02H42M5IK1T0XBVSO2EATOURD0QL401LLEXLTS'
 });
 
 const params = {
-    "ll": "-23.557552800000003, -46.675900299999995",
-    "query": 'musculação'
+    'll': '-23.557552800000003, -46.675900299999995',
+    'query': 'Musculação',
+    'limit': '20'
 };
 
 export default class Foursquare extends Component {
@@ -38,7 +39,10 @@ export default class Foursquare extends Component {
 
     render() {
 		
-		const place = this.state;
+        const place = this.state;
+        
+        console.log('STATE', place);
+        
 		
         return (
             <div>
@@ -46,10 +50,10 @@ export default class Foursquare extends Component {
 				<Fragment>
 					<main>
 						<InfoBar
-							places={place.items}
+                            places={place.items}
 						/>
                         <MapGoogle
-                            
+                            places={place.items}
                         />
                     </main>
                 </Fragment>
@@ -59,6 +63,6 @@ export default class Foursquare extends Component {
 }
 
 ReactDOM.render(
-  <Foursquare /*sendLocation={ () => this.fetchLocation() }*/ />,
+  <Foursquare /*viewLocation={ () => this.fetchLocation() } */ />,
   document.getElementById('root')
 );
