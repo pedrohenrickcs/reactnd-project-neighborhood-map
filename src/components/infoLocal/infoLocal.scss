@@ -33,13 +33,15 @@
             margin-top: 5px;
             margin-left: 15%;
         }
+
         li:hover::after {
             width: 85%;
         }
+        
+        &-ico {
+            vertical-align: middle;
+            margin-right: 10px;
+        }
     }
 
-    &__ico {
-        vertical-align: middle;
-        margin-right: 10px;
-    }
 }

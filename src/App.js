@@ -59,6 +59,6 @@ export default class Foursquare extends Component {
 }
 
 ReactDOM.render(
-  <Foursquare />,
+  <Foursquare /*sendLocation={ () => this.fetchLocation() }*/ />,
   document.getElementById('root')
 );

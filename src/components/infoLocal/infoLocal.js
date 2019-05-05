@@ -3,9 +3,6 @@ import SearchResult from '../searchResult/searchResult';
 
 const InfoBar = (props) => {
 
-    console.log('props', props);
-    
-
     return (
         <aside className="box-info">
             <SearchResult/>
@@ -13,7 +10,7 @@ const InfoBar = (props) => {
             <ul className="box-info__text">
                 {props.places.map((e) => (
                     <li>
-                        <img src={ `${e.categories[0].icon.prefix}bg_32${e.categories[0].icon.suffix}` }  alt={ `${e.categories[0].name}` } className="ico"/>
+                        <img src={`${e.categories[0].icon.prefix}bg_32${e.categories[0].icon.suffix}`} alt={`${e.categories[0].name}`} className="box-info__text-ico"/>
                         {e.name}
                     </li>
                     ))

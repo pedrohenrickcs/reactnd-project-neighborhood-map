@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import { loadPartialConfig } from '@babel/core';
 
 export class MapGoogle extends Component {
 
@@ -46,9 +45,12 @@ export class MapGoogle extends Component {
          }
      }
 
-    render() {        
+    render() {    
+        
+        const { sendLocation } = this.props;
 
-        console.log('this render', this);        
+        console.log('sendLocation', sendLocation);
+
         
         return (
             <div className="map">
