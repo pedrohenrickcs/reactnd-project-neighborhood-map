@@ -15,7 +15,7 @@ export class MapGoogle extends Component {
             markerActive: marker,
             showingInfoWindow: true
         });
-    }
+    };
     
     MapClicked = (props) => {
         if (this.state.showingInfoWindow) {
@@ -28,7 +28,7 @@ export class MapGoogle extends Component {
     
     componentWillUpdate() {
         this.getGeoLocation()
-    }
+    };
     
     getGeoLocation = () => {
         if (navigator.geolocation) {
@@ -39,18 +39,19 @@ export class MapGoogle extends Component {
                         lng: position.coords.longitude
                     })
                 }
-                )
-            }
+            )}
         }
         
-        render() {    
+        render() {
             
             const { places } = this.props;
             const googleProps = this.props.google;
+
+            console.log('google', this);
             
             return (
                 <div className="map">
-                    <Map 
+                    <Map
                         google={googleProps} 
                         zoom={14}  
                         initialCenter={{ lat: -23.557552800000003, lng: -46.675900299999995 }}
@@ -66,11 +67,9 @@ export class MapGoogle extends Component {
                             />
                         )}
                         
-
                         <InfoWindow
                             marker={this.state.markerActive}
-                            visible={this.state.showingInfoWindow}
-                            >
+                            visible={this.state.showingInfoWindow}>
                             <div>
                                 <h1>{this.state.place.name}</h1>
                             </div>

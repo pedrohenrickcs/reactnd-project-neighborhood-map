@@ -1,12 +1,14 @@
 import React from 'react';
 import SearchResult from '../searchResult/searchResult';
+import { InfoWindow } from 'google-maps-react';
 
 const InfoBar = (props) => {  
     
+    // console.log('PROPS', props);
     
-    const { onclick } = props;
+    const { marker } = props;
     
-    console.log('onclick', onclick);
+    console.log('marker', marker);
 
     return (
         <aside className="box-info">
@@ -14,12 +16,15 @@ const InfoBar = (props) => {
             <h1>Localidades</h1>
             <ul className="box-info__text">
                 {props.places.map((e) => (
-                    <li key={e.id} /* onClick={this.}*/ >
+                    <li key={e.id}  
+                        onClick={(e) => {
+                            console.log('clicou aqui');                           
+                        }
+                    }>
                         <img src={`${e.categories[0].icon.prefix}bg_32${e.categories[0].icon.suffix}`} alt={`${e.categories[0].name}`} className="box-info__text-ico"/>
                         {e.name}
                     </li>
-                    ))
-                }
+                ))}
             </ul>
         </aside>
     )

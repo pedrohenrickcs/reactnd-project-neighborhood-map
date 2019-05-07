@@ -18,13 +18,11 @@ export default class Foursquare extends Component {
         this.state = {
             items: []
         };
-	}
+    }
 
 	fetchLocation() {
 		KeyApp.venues.getVenues(params)
-			.then(res=> {
-				console.log('res', res);
-				
+			.then(res=> {				
 			this.setState({ items: res.response.venues });
 		});
 	}
@@ -36,8 +34,11 @@ export default class Foursquare extends Component {
     render() {
 		
         const place = this.state;
+
+        const { marker } = this.props;
+
+        console.log('MARKER', marker);
         
-        console.log('STATE', place);
         
         return (
             <div>
@@ -46,10 +47,10 @@ export default class Foursquare extends Component {
 					<main>
 						<InfoBar
                             places={place.items}
+                            marker={this.clickMarker}
 						/>
                         <MapGoogle
                             places={place.items}
-                            // onclick={this.MapClicked}
                         />
                     </main>
                 </Fragment>
