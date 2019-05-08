@@ -6,14 +6,20 @@ export class MapGoogle extends Component {
     state = {
         place: {},
         marker: {},
-        showingInfoWindow: false
+        showingInfoWindow: false,
+        local: {},
+        address: {}
     };
     
     clickMarker = (props, marker, e) => {
+        console.log('props', props);
+        
         this.setState({
             place: props,
             markerActive: marker,
-            showingInfoWindow: true
+            showingInfoWindow: true,
+            local: props,
+            address: props
         });
     };
     
@@ -47,7 +53,7 @@ export class MapGoogle extends Component {
             const { places } = this.props;
             const googleProps = this.props.google;
 
-            console.log('google', this);
+            console.log('google', this.state);
             
             return (
                 <div className="map">
@@ -57,21 +63,27 @@ export class MapGoogle extends Component {
                         initialCenter={{ lat: -23.557552800000003, lng: -46.675900299999995 }}
                         onClick={this.MapClicked}>
 
-                        {places.map((e) =>                         
+                        {places.map((e) =>
                             <Marker
                                 key={e.id}
                                 onClick={this.clickMarker}
                                 name={e.name} 
+                                // draggable={true}
+                                title={e.categories[0].name} 
+                                address={e.location.formattedAddress[0]}
                                 position={{ lat: e.location.lat, lng: e.location.lng }}
                                 // animation={googleProps.maps.Animation.DROP}
-                            />
+                            />     
                         )}
                         
                         <InfoWindow
                             marker={this.state.markerActive}
-                            visible={this.state.showingInfoWindow}>
-                            <div>
+                            visible={this.state.showingInfoWindow}
+                            >
+                            <div className="box-info-window">
                                 <h1>{this.state.place.name}</h1>
+                                <h2>Local: {this.state.local.title}</h2>
+                                <h3>Endereço: {this.state.address.address}</h3>
                             </div>
                         </InfoWindow>
                     </Map>

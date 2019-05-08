@@ -4,11 +4,7 @@ import { InfoWindow } from 'google-maps-react';
 
 const InfoBar = (props) => {  
     
-    // console.log('PROPS', props);
-    
-    const { marker } = props;
-    
-    console.log('marker', marker);
+    console.log('PROPS', props);
 
     return (
         <aside className="box-info">

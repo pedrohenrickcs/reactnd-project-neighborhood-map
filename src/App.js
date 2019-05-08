@@ -35,10 +35,7 @@ export default class Foursquare extends Component {
 		
         const place = this.state;
 
-        const { marker } = this.props;
-
-        console.log('MARKER', marker);
-        
+        const { marker } = this.props;        
         
         return (
             <div>
