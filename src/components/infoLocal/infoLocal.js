@@ -14,9 +14,8 @@ const InfoBar = (props) => {
                 {props.places.map((e) => (
                     <li key={e.id}  
                         onClick={(e) => {
-                            console.log('clicou aqui');                           
-                        }
-                    }>
+                            console.log('clicou aqui', props);                           
+                        }}>
                         <img src={`${e.categories[0].icon.prefix}bg_32${e.categories[0].icon.suffix}`} alt={`${e.categories[0].name}`} className="box-info__text-ico"/>
                         {e.name}
                     </li>

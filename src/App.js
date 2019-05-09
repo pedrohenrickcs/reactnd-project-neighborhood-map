@@ -30,6 +30,7 @@ export default class Foursquare extends Component {
     componentDidMount() {            
 		this.fetchLocation();
     }
+    
 
     render() {
 		
@@ -44,7 +45,7 @@ export default class Foursquare extends Component {
 					<main>
 						<InfoBar
                             places={place.items}
-                            marker={this.clickMarker}
+                            // marker={this.clickMarker}
 						/>
                         <MapGoogle
                             places={place.items}
