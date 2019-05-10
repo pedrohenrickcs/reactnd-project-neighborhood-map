@@ -6,20 +6,16 @@ export class MapGoogle extends Component {
     state = {
         place: {},
         marker: {},
-        showingInfoWindow: false,
-        local: {},
-        address: {}
+        showingInfoWindow: false
     };
     
-    clickMarker = (props, marker, e) => {
+    clickMarker = (props, marker, e) => {    
         console.log('props', props);
-        
+            
         this.setState({
             place: props,
             markerActive: marker,
-            showingInfoWindow: true,
-            local: props,
-            address: props
+            showingInfoWindow: true
         });
     };
     
@@ -53,7 +49,10 @@ export class MapGoogle extends Component {
             const { places } = this.props;
             const googleProps = this.props.google;
 
-            console.log('google', this.state);
+            console.log('google', places);
+
+            console.log('THIS PLACE', this.state.place);
+            
             
             return (
                 <div className="map">
@@ -75,15 +74,15 @@ export class MapGoogle extends Component {
                                 // animation={googleProps.maps.Animation.DROP}
                             />     
                         )}
-                        
+
                         <InfoWindow
                             marker={this.state.markerActive}
                             visible={this.state.showingInfoWindow}
                             >
-                            <div className="box-info-window">
-                                <h1>{this.state.place.name}</h1>
-                                <h2>Local: {this.state.local.title}</h2>
-                                <h3>Endereço: {this.state.address.address}</h3>
+                            <div className="window">
+                                <h1 className="window__local">{this.state.place.name}</h1>
+                                <h2 className="window__address">{this.state.place.address}</h2>
+                                {/* <h3>{this.state.address.address}</h3> */}
                             </div>
                         </InfoWindow>
                     </Map>

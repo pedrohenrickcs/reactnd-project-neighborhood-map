@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment, useState} from 'react';
 import InfoBar from './components/infoLocal/infoLocal';
 import MapGoogle from './components/googleMaps/googleMaps';
 import ReactDOM from 'react-dom';
@@ -7,7 +7,7 @@ import KeyApp from './components/utils/keys';
 
 const params = {
     'll': '-23.557552800000003, -46.675900299999995',
-    'query': 'Musculação',
+    'query': 'food',
     'limit': '20'
 };
 
@@ -30,13 +30,15 @@ export default class Foursquare extends Component {
     componentDidMount() {            
 		this.fetchLocation();
     }
-    
 
+    
     render() {
+        // const [infoWindowIsOpen, setInfoWindowIsOpen] = useState([]);
 		
         const place = this.state;
 
-        const { marker } = this.props;        
+        console.log('place', place);
+        
         
         return (
             <div>
@@ -45,7 +47,7 @@ export default class Foursquare extends Component {
 					<main>
 						<InfoBar
                             places={place.items}
-                            // marker={this.clickMarker}
+                            // infoWindowIsOpen={infoWindowIsOpen}
 						/>
                         <MapGoogle
                             places={place.items}
