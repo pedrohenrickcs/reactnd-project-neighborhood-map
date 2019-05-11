@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import InfoBar from './components/infoLocal/infoLocal';
-import MapGoogle from './components/googleMaps/googleMaps';
+import GoogleMaps from './components/googleMaps/googleMaps';
 import ReactDOM from 'react-dom';
 import './App.scss';
 import KeyApp from './components/utils/keys';
@@ -12,14 +12,14 @@ const params = {
     'limit': '20'
 };
 
-// const findItems = (id, categoria) => {
-//     console.log('ID', id);
+const findItems = (id, categoria) => {
+    console.log('ID', id);
     
-//     MapsAPI.getVenue(id)
-//         .then(res => {
-//             console.log('res', res);
-//         })
-// }
+    MapsAPI.getVenue(id)
+        .then(res => {
+            console.log('res', res);
+        })
+}
 
 export default class Foursquare extends Component {
 
@@ -27,7 +27,10 @@ export default class Foursquare extends Component {
         super(props);
         this.state = {
             items: [],
-            filteredItems: []
+            markers: [],
+            filteredItems: [],
+            markerActive: null,
+            showingInfoWindow: false
         };
     }
 
@@ -39,23 +42,41 @@ export default class Foursquare extends Component {
     }
     
     filterLocation(term) {
-        console.log('term', term);
         const resultFilter = this.state.items.filter((item) => {
             return item.name.toLowerCase().includes(term.toLowerCase());
         });        
         this.setState({ filteredItems: resultFilter })
-        console.log('resultFilter', resultFilter);
     }
     
     componentDidMount() {
         this.fetchLocation();
     }
-    
-    clickMarker = (props, marker, e) => {
-        console.log('props', props);
+
+    getMarkerRef = (ref) => {
+        // console.log('REF', ref);
+        
+        if (ref !== null) {
+            this.setState(prevState => ({
+                markers: [...prevState.markers, ref]
+            }));
+        }
+    }
+
+    clickListItem = (item) => {
+        console.log('item', item);
+
+        const itemSelected = this.state.markers.filter((marker) => {
+            return item.name === marker.props.name;
+        })
+        
+        // console.log('itemSelected', itemSelected[0]);
+        this.clickMarker(null, itemSelected[0].marker);
+
+    }
+
+    clickMarker = (props, marker) => {
         
         this.setState({
-            place: props,
             markerActive: marker,
             showingInfoWindow: true
         });
@@ -75,9 +96,14 @@ export default class Foursquare extends Component {
                             fetchLocation={this.fetchLocation}
                             clickMarker={this.clickMarker}
                             filterLocation={(termo) => this.filterLocation(termo)} 
+                            clickListItem={(item) => this.clickListItem(item)}
 						/>
-                        <MapGoogle
+                        <GoogleMaps
                             places={place.filteredItems}
+                            markerRef={this.getMarkerRef}
+                            clickMarker={this.clickMarker}
+                            markerActive={place.markerActive}
+                            showingInfoWindow={place.showingInfoWindow}
                         />
                     </main>
                 </Fragment>

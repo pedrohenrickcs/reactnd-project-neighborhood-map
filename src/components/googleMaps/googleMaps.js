@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-export class MapGoogle extends Component {
+export class GoogleMaps extends Component {
     
     state = {
         place: {},
         marker: {},
-        showingInfoWindow: true
-    };
-    
-    clickMarker = (props, marker, e, index) => {       
-		console.log('MARKER', marker);
-		console.log('INDEX', index);
-		
-		     
-        this.setState({
-            place: props,
-            markerActive: marker,
-            showingInfoWindow: true
-        });
+        showingInfoWindow: false
     };
     
     MapClicked = (props) => {
@@ -46,12 +34,10 @@ export class MapGoogle extends Component {
             )}
         }
         
-        render() {
+        render() {			
             
-            const { places } = this.props;
+            const { places, markerRef, clickMarker, markerActive, showingInfoWindow } = this.props;
 			const googleProps = this.props.google;
-			
-			console.log('PLACES', places);
 			
             return (
                 <div className="map">
@@ -61,29 +47,31 @@ export class MapGoogle extends Component {
                         initialCenter={{ lat: -23.557552800000003, lng: -46.675900299999995 }}
                         onClick={this.MapClicked}>
 
-                        {places.map((e, index) =>
+                        {places.map((e) =>
                             <Marker
                                 key={e.id}
-                                onClick={(props, marker, e) => this.clickMarker(props, marker, e, index)}
-                                name={e.name} 
+                                onClick={(props, marker) => clickMarker(props, marker)}
+								name={e.name} 
+								ref={markerRef}
                                 // draggable={true}
                                 title={e.categories[0].name}
                                 address={e.location.formattedAddress[0]}
                                 position={{ lat: e.location.lat, lng: e.location.lng }}
                                 // animation={googleProps.maps.Animation.DROP}
                             >
-								<InfoWindow
-									// marker={this.state.markerActive}
-									visible={this.state.showingInfoWindow}
-									>
-									<div className="window">
-										<h1 className="window__local">{this.state.place.name}</h1>
-										<h2 className="window__address">{this.state.place.address}</h2>
-										{/* <h3>{this.state.address.address}</h3> */}
-									</div>
-								</InfoWindow>
 							</Marker>
-                        )}
+						)}
+						
+						<InfoWindow
+							marker={markerActive}
+							visible={showingInfoWindow}
+							>
+							<div className="window">
+								<h1 className="window__local">{markerActive && markerActive.name}</h1>
+								<h2 className="window__address">{markerActive &&  markerActive.address}</h2>
+								{/* <h3>{this.state.address.address}</h3> */}
+							</div>
+						</InfoWindow>
 
                     </Map>
                 </div>
@@ -93,4 +81,4 @@ export class MapGoogle extends Component {
 
 export default GoogleApiWrapper({
     apiKey: ('AIzaSyDehkUDHtobclpcnckcmIgEmakMHA_ARGo')
-})(MapGoogle)
+})(GoogleMaps)
