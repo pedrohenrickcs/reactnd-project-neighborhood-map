@@ -12,49 +12,72 @@ const params = {
     'limit': '20'
 };
 
-const findItems = (id, categoria) => {
-    MapsAPI.getVenue(id)
-        .then(res => {
-            console.log('res', res);
-        })
-}
+// const findItems = (id, categoria) => {
+//     console.log('ID', id);
+    
+//     MapsAPI.getVenue(id)
+//         .then(res => {
+//             console.log('res', res);
+//         })
+// }
 
 export default class Foursquare extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            items: []
+            items: [],
+            filteredItems: []
         };
     }
 
 	fetchLocation() {
 		KeyApp.venues.getVenues(params)
-			.then(res=> {				
-			this.setState({ items: res.response.venues });
+			.then(res=> {
+			this.setState({ items: res.response.venues, filteredItems: res.response.venues });
 		});
-	}
-
-    componentDidMount() {
-		this.fetchLocation();
     }
     
-    render() {
-		
-        const place = this.state;
+    filterLocation(term) {
+        console.log('term', term);
+        const resultFilter = this.state.items.filter((item) => {
+            return item.name.toLowerCase().includes(term.toLowerCase());
+        });        
+        this.setState({ filteredItems: resultFilter })
+        console.log('resultFilter', resultFilter);
+    }
+    
+    componentDidMount() {
+        this.fetchLocation();
+    }
+    
+    clickMarker = (props, marker, e) => {
+        console.log('props', props);
         
+        this.setState({
+            place: props,
+            markerActive: marker,
+            showingInfoWindow: true
+        });
+    };
+    
+    render() {
+        
+        const place = this.state;
+
         return (
             <div>
                 <div>Items:</div>
 				<Fragment>
 					<main>
 						<InfoBar
-                            places={place.items}
-                            findItems={findItems}
-                            // infoWindowIsOpen={infoWindowIsOpen}
+                            places={place.filteredItems}
+                            fetchLocation={this.fetchLocation}
+                            clickMarker={this.clickMarker}
+                            filterLocation={(termo) => this.filterLocation(termo)} 
 						/>
                         <MapGoogle
-                            places={place.items}
+                            places={place.filteredItems}
                         />
                     </main>
                 </Fragment>

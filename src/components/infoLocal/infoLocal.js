@@ -1,20 +1,19 @@
 import React from 'react';
-import SearchResult from '../searchResult/searchResult';
+import SearchBar from '../searchResult/searchResult';
 
 const InfoBar = (props) => {  
-    
-    console.log('PROPS', props);
+	
+	const handleSubmit = (e) => props.filterLocation(e)
     
     return (
         <aside className="box-info">
-            <SearchResult/>
+    		<SearchBar onSubmit={handleSubmit} />
             <h1>Localidades</h1>
             <ul className="box-info__text">
                 {props.places.map((e) => (
-                    <li key={e.id}  
-                        onClick={(e) => {
-                            console.log('clicou aqui', props);                           
-                        }}>
+                    <li key={e.id}
+                        onClick={props.clickMarker}>
+
                         <img src={`${e.categories[0].icon.prefix}bg_32${e.categories[0].icon.suffix}`} alt={`${e.categories[0].name}`} className="box-info__text-ico"/>
                         {e.name}
                     </li>
