@@ -1,11 +1,10 @@
 import React from 'react';
 import SearchResult from '../searchResult/searchResult';
-import { InfoWindow } from 'google-maps-react';
 
 const InfoBar = (props) => {  
     
     console.log('PROPS', props);
-
+    
     return (
         <aside className="box-info">
             <SearchResult/>

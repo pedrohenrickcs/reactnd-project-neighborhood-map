@@ -9,7 +9,7 @@ export class MapGoogle extends Component {
         showingInfoWindow: false
     };
     
-    clickMarker = (props, marker, e) => {    
+    clickMarker = (props, marker, e) => {
         console.log('props', props);
             
         this.setState({

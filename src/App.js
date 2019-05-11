@@ -1,15 +1,23 @@
-import React, {Component, Fragment, useState} from 'react';
+import React, { Component, Fragment } from 'react';
 import InfoBar from './components/infoLocal/infoLocal';
 import MapGoogle from './components/googleMaps/googleMaps';
 import ReactDOM from 'react-dom';
 import './App.scss';
 import KeyApp from './components/utils/keys';
+import * as MapsAPI from './components/utils/foursquareApi';
 
 const params = {
     'll': '-23.557552800000003, -46.675900299999995',
     'query': 'food',
     'limit': '20'
 };
+
+const findItems = (id, categoria) => {
+    MapsAPI.getVenue(id)
+        .then(res => {
+            console.log('res', res);
+        })
+}
 
 export default class Foursquare extends Component {
 
@@ -27,18 +35,13 @@ export default class Foursquare extends Component {
 		});
 	}
 
-    componentDidMount() {            
+    componentDidMount() {
 		this.fetchLocation();
     }
-
     
     render() {
-        // const [infoWindowIsOpen, setInfoWindowIsOpen] = useState([]);
 		
         const place = this.state;
-
-        console.log('place', place);
-        
         
         return (
             <div>
@@ -47,6 +50,7 @@ export default class Foursquare extends Component {
 					<main>
 						<InfoBar
                             places={place.items}
+                            findItems={findItems}
                             // infoWindowIsOpen={infoWindowIsOpen}
 						/>
                         <MapGoogle

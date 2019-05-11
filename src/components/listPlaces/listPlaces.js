@@ -4,7 +4,6 @@ import InfoBar from '../infoLocal/infoLocal';
 const ListPlaces = (props) => {
 
     console.log('dsffdsfdfewrr', props);
-    
 
     const [selectedItem, setSelectedItem] = useState([]);
     const [infoWindowIsOpen, setInfoWindowIsOpen] = useState([]);
