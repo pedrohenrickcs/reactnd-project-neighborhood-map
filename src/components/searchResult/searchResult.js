@@ -21,8 +21,8 @@ export class SearchBar extends React.Component {
   render() {
     return (
       <form className="search" onSubmit={this.handleSubmit}>
-        <input id="venueType" onChange={this.handleChange} value={this.state.value} placeholder="search for venues" />
-        <input type="submit" value="Submit" />
+        <input id="venueType" onChange={this.handleChange} value={this.state.value} placeholder="Pesquisar" />
+        <input type="submit" className="submit" value="Submit" />
       </form>
     );
   }

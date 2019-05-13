@@ -1,26 +1,29 @@
 import React from 'react';
 import SearchBar from '../searchResult/searchResult';
+import { slide as Menu } from "react-burger-menu";
 
-const InfoBar = (props) => {  
+const InfoBar = (props) => {
 	
-	const handleSubmit = (e) => props.filterLocation(e)	
+    const handleSubmit = (e) => props.filterLocation(e)	
     
     return (
-        <aside className="box-info">
-    		<SearchBar onSubmit={handleSubmit} />
+        <Menu {...props} customBurgerIcon={ window.innerWidth >= 768 ? false : null } 
+              isOpen={ window.innerWidth <= 768 ? false : true } 
+              className="box-info">
+            <SearchBar onSubmit={handleSubmit} />
             <h1>Localidades</h1>
             <ul className="box-info__text">
                 {props.places.map((place) => (
                     <li key={place.id}
-						onClick={() => props.clickListItem(place)}
-						
-						>
+                        className="menu-item"
+                        onClick={() => props.clickListItem(place)}
+                        >
                         <img src={`${place.categories[0].icon.prefix}bg_32${place.categories[0].icon.suffix}`} alt={`${place.categories[0].name}`} className="box-info__text-ico"/>
                         {place.name}
                     </li>
                 ))}
             </ul>
-        </aside>
+        </Menu>
     )
 }
 

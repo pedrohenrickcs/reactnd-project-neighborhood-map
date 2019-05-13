@@ -1,3 +1,28 @@
 .search {
-    z-index: 10;
+    padding: 21px;
+    display: flex;
+
+    #venueType {
+        border: none;
+        height: 40px;
+        color: #ffffff;
+        background: rgb(41, 40, 40);
+        width: 80%;
+        padding-left: 8px;
+        cursor: auto;
+    }
+    
+    .submit {
+        height: 40px;
+        width: 20%;
+        background: #008B8B;
+        color: #ffffff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all .3s ease-in-out;
+        &:hover {
+            background: #ffffff;
+            color: #008B8B;
+        }
+    }
 }
