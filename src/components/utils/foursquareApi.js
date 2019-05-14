@@ -6,11 +6,11 @@ const params = {
     'll': '-23.557552800000003, -46.675900299999995',
     'query': 'food',
     'limit': '20',
-    'venue_id': '4c3ca244933b0f470856e421'
+    'venue_id': ''
 };
 
 export const getVenue = id =>
-    fetch(`${BASE_URL}&${CLIENT_ID}&${CLIENT_SECRET}&${params.query}&${params.limit}&${params.ll}`)
+    fetch(`${BASE_URL}&${CLIENT_ID}&${CLIENT_SECRET}&${params.query}&${params.limit}&${params.ll}&${id}`)
     .then(res => res.json())
     .then(data => data.response.groups[0])
     .catch(err => console.error(err))

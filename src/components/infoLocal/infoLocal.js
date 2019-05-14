@@ -7,8 +7,9 @@ const InfoBar = (props) => {
     const handleSubmit = (e) => props.filterLocation(e)	
     
     return (
-        <Menu {...props} customBurgerIcon={ window.innerWidth >= 768 ? false : null } 
-              isOpen={ window.innerWidth <= 768 ? false : true } 
+        <Menu {...props}
+              isOpen={ true } 
+              noOverlay
               className="box-info">
             <SearchBar onSubmit={handleSubmit} />
             <h1>Localidades</h1>

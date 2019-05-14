@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import './App.scss';
 import KeyApp from './components/utils/keys';
 
-
 export default class Foursquare extends Component {
     
     constructor(props) {
@@ -15,42 +14,26 @@ export default class Foursquare extends Component {
             markers: [],
             filteredItems: [],
             markerActive: null,
-            showingInfoWindow: false,
-            params: this.params.venue_id
+            showingInfoWindow: false
         };
     }
     
     params = {
         'll': '-23.557552800000003, -46.675900299999995',
         'query': 'food',
-        'limit': '20',
-        'venue_id': ''
+        'limit': '20'
     };
-
-    filterId() {
-        console.log('sdff');
-
-        let id = this.state.items.map((resultId) => {
-            console.log('id', resultId);
-            return this.params.venue_id = resultId.id;
-        })
-
-        this.setState({ params: id })
-    }
     
 	fetchLocation() {
         KeyApp.venues.getVenues(this.params)
         .then(res=> {
-            this.setState({ items: res.response.venues, filteredItems: res.response.venues });
-		});
-    }
-    
-	fetchPhoto() {
-        KeyApp.venues.getVenue(this.params)
-        .then(res=> {
-            console.log('res', res);
-            this.setState({ items: res.response.venues, params: this.state.params });
-        });
+
+            const idVenue = res.response.venues.map((e) => {
+                return this.params = e.id;
+            })
+            
+            this.setState({ items: res.response.venues, filteredItems: res.response.venues, params: idVenue });
+        })
     }
     
     filterLocation(term) {
@@ -62,9 +45,7 @@ export default class Foursquare extends Component {
     }
     
     componentDidMount() {
-        this.filterId();
         this.fetchLocation();
-        this.fetchPhoto();
     }
 
     getMarkerRef = (ref) => {        
@@ -94,10 +75,7 @@ export default class Foursquare extends Component {
     render() {
         
         const place = this.state;
-
-        console.log('place', place);
         
-
         return (
             <div>
 				<Fragment>
@@ -116,8 +94,6 @@ export default class Foursquare extends Component {
                             clickMarker={this.clickMarker}
                             markerActive={place.markerActive}
                             showingInfoWindow={place.showingInfoWindow}
-                            fetchPhoto={this.fetchPhoto}
-                            params={this.params.venue_id}
                         />
                     </main>
                 </Fragment>
