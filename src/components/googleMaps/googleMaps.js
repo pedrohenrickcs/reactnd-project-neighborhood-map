@@ -18,23 +18,15 @@ export class GoogleMaps extends Component {
             })
         }
     };
-
-    filterId() {
-
-        let id = this.props.places.map((resultId) => {
-            return resultId.params = resultId.id;
-        })
-    }
     
     componentWillUpdate() {
-        this.filterId();
         this.getGeoLocation()
     };
     
     getGeoLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                position => {                     
+                position => {
                     this.setState({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
@@ -47,10 +39,7 @@ export class GoogleMaps extends Component {
             
             const { places, markerRef, clickMarker, markerActive, showingInfoWindow, fetchPhoto, params } = this.props;
             const googleProps = this.props.google;
-
-            console.log('sdlkm,fçlksfd', this.props);
             
-			
             return (
                 <div className="map">
                     <Map
@@ -60,7 +49,7 @@ export class GoogleMaps extends Component {
                         onClick={this.MapClicked}
                         >
 
-                        {places.map((e) => 
+                        {places.map((e) =>
                             <Marker
                                 key={e.id}
                                 onClick={(props, marker) => clickMarker(props, marker)}
@@ -70,8 +59,7 @@ export class GoogleMaps extends Component {
                                 title={e.categories[0].name}
                                 address={e.location.formattedAddress[0]}
                                 position={{ lat: e.location.lat, lng: e.location.lng }}
-                                animation={googleProps.maps.Animation.DROP}
-                                // params={e.id}
+                                // animation={googleProps.maps.Animation.DROP}
                                 locale={e.location.city}
                             >
 							</Marker>
@@ -85,9 +73,7 @@ export class GoogleMaps extends Component {
 							<div className="window">
 								<h1 className="window__local">{markerActive && markerActive.name}</h1>
 								<h2 className="window__address">{markerActive &&  markerActive.address}</h2>
-								< h3 > {
-								    markerActive && markerActive.locale
-								} </h3>
+								<h3>{ markerActive && markerActive.locale }</h3>
 							</div>
 						</InfoWindow>
 

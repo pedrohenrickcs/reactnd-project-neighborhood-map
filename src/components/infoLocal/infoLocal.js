@@ -8,7 +8,7 @@ const InfoBar = (props) => {
     
     return (
         <Menu {...props}
-              isOpen={ true } 
+              isOpen={ true }
               noOverlay
               className="box-info">
             <SearchBar onSubmit={handleSubmit} />

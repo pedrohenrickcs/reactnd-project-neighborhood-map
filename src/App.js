@@ -21,7 +21,8 @@ export default class Foursquare extends Component {
     params = {
         'll': '-23.557552800000003, -46.675900299999995',
         'query': 'food',
-        'limit': '20'
+        'limit': '30',
+        'venue_id': '5c51d09a8c812a002cf700f4'
     };
     
 	fetchLocation() {
@@ -29,23 +30,38 @@ export default class Foursquare extends Component {
         .then(res=> {
 
             const idVenue = res.response.venues.map((e) => {
-                return this.params = e.id;
+                return this.params = JSON.stringify(e.id);
             })
             
             this.setState({ items: res.response.venues, filteredItems: res.response.venues, params: idVenue });
         })
     }
+
+    fetchPhoto() {
+
+        console.log('this', this.state);
+        
+        KeyApp.venues.getVenue(this.params)
+            .then(res => {
+                console.log('res', res);
+                return res.response.venue;
+            })
+    }
     
     filterLocation(term) {
         const resultFilter = this.state.items.filter((item) => {
-            
             return item.name.toLowerCase().includes(term.toLowerCase());
-        });        
+        });     
+
         this.setState({ filteredItems: resultFilter })
     }
     
     componentDidMount() {
         this.fetchLocation();
+    }
+    
+    componentDidUpdate() {
+        this.fetchPhoto();
     }
 
     getMarkerRef = (ref) => {        
