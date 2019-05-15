@@ -26,7 +26,7 @@ export class GoogleMaps extends Component {
     getGeoLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                position => {
+                position => {                     
                     this.setState({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
@@ -37,9 +37,9 @@ export class GoogleMaps extends Component {
         
         render() {			
             
-            const { places, markerRef, clickMarker, markerActive, showingInfoWindow, fetchPhoto, params } = this.props;
-            const googleProps = this.props.google;
-            
+            const { places, markerRef, clickMarker, markerActive, showingInfoWindow, fetchPhoto } = this.props;
+            const googleProps = this.props.google;            
+			
             return (
                 <div className="map">
                     <Map
@@ -49,7 +49,7 @@ export class GoogleMaps extends Component {
                         onClick={this.MapClicked}
                         >
 
-                        {places.map((e) =>
+                        {places.map((e) => 
                             <Marker
                                 key={e.id}
                                 onClick={(props, marker) => clickMarker(props, marker)}
@@ -59,7 +59,6 @@ export class GoogleMaps extends Component {
                                 title={e.categories[0].name}
                                 address={e.location.formattedAddress[0]}
                                 position={{ lat: e.location.lat, lng: e.location.lng }}
-                                // animation={googleProps.maps.Animation.DROP}
                                 locale={e.location.city}
                             >
 							</Marker>
