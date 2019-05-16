@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import InfoBar from './components/infoLocal/infoLocal';
 import GoogleMaps from './components/googleMaps/googleMaps';
 import ReactDOM from 'react-dom';

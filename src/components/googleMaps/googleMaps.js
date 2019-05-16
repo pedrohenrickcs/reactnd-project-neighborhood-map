@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import { returnStatement } from '@babel/types';
 
 export class GoogleMaps extends Component {
     
