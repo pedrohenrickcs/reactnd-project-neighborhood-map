@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { returnStatement } from '@babel/types';
 
 export class GoogleMaps extends Component {
     
@@ -41,7 +42,7 @@ export class GoogleMaps extends Component {
             const googleProps = this.props.google;            
 			
             return (
-                <div className="map">
+                <div className="map" aria-label="Map">
                     <Map
                         google={googleProps}
                         zoom={14}  
@@ -51,8 +52,9 @@ export class GoogleMaps extends Component {
 
                         {places.map((e) => 
                             <Marker
-                                key={e.id}
-                                onClick={(props, marker) => clickMarker(props, marker)}
+                            aria-label="Open InfoWindow"
+                            key={e.id}
+                            onClick={(props, marker) => clickMarker(props, marker)}
 								name={e.name} 
 								ref={markerRef}
                                 draggable={true}
@@ -60,6 +62,7 @@ export class GoogleMaps extends Component {
                                 address={e.location.formattedAddress[0]}
                                 position={{ lat: e.location.lat, lng: e.location.lng }}
                                 locale={e.location.city}
+                                animation={markerActive ? (e.name === this.props.markerActive.name ? googleProps.maps.Animation.BOUNCE : '0') : '0'}
                             >
 							</Marker>
 						)}

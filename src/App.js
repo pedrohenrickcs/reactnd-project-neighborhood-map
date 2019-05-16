@@ -5,6 +5,11 @@ import ReactDOM from 'react-dom';
 import './App.scss';
 import KeyApp from './components/utils/keys';
 
+import { BrowserRouter  as Router, Switch, Route } from 'react-router-dom'
+
+import { createBrowserHistory } from 'history';
+import Error from './components/error/error'
+
 export default class Foursquare extends Component {
     
     constructor(props) {
@@ -27,12 +32,20 @@ export default class Foursquare extends Component {
 	fetchLocation() {
         KeyApp.venues.getVenues(this.params)
         .then(res=> {
-
+            
             const idVenue = res.response.venues.map((e) => {
                 return this.params = e.id;
             })
             
             this.setState({ items: res.response.venues, filteredItems: res.response.venues, params: idVenue });
+        }).catch(error => {
+            const history = createBrowserHistory();
+
+            history.push({
+                pathname: '/500',
+                state: { some: 'state' }
+            })
+            
         })
     }
     
@@ -78,31 +91,36 @@ export default class Foursquare extends Component {
         
         return (
             <div>
-				<Fragment>
-					<main>
-						<InfoBar
-                            places={place.filteredItems}
-                            fetchLocation={this.fetchLocation}
-                            clickMarker={this.clickMarker}
-                            filterLocation={(termo) => this.filterLocation(termo)} 
-                            clickListItem={(item) => this.clickListItem(item)}
-                            pageWrapId={'page-wrap'}
-						/>
-                        <GoogleMaps
-                            places={place.filteredItems}
-                            markerRef={this.getMarkerRef}
-                            clickMarker={this.clickMarker}
-                            markerActive={place.markerActive}
-                            showingInfoWindow={place.showingInfoWindow}
-                        />
-                    </main>
-                </Fragment>
+                <Router>
+                    <Switch>
+                        <Route exact path="/" render={() => (
+                            <main>
+                                <InfoBar
+                                    places={place.filteredItems}
+                                    fetchLocation={this.fetchLocation}
+                                    clickMarker={this.clickMarker}
+                                    filterLocation={(termo) => this.filterLocation(termo)} 
+                                    clickListItem={(item) => this.clickListItem(item)}
+                                    pageWrapId={'page-wrap'}
+                                />
+                                <GoogleMaps
+                                    places={place.filteredItems}
+                                    markerRef={this.getMarkerRef}
+                                    clickMarker={this.clickMarker}
+                                    markerActive={place.markerActive}
+                                    showingInfoWindow={place.showingInfoWindow}
+                                />
+                            </main>
+                        )}/>
+                        <Route component={Error} />
+                    </Switch>
+                </Router>
             </div>
         )
     }
 }
 
 ReactDOM.render(
-  <Foursquare/>,
+    <Foursquare/>,
   document.getElementById('root')
 );
